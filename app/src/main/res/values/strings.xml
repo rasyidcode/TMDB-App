@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TMDB App</string>
+    <string name="text_home">Home</string>
+    <string name="text_search">Search</string>
+    <string name="text_favorites">Favorites</string>
+    <string name="text_now_playing">Now Playing</string>
+    <string name="text_popular">Popular</string>
+    <string name="text_top_rated">Top Rated</string>
+    <string name="text_upcoming">Upcoming</string>
+    <string name="text_movie_poster">Movie Poster</string>
+    <string name="text_show_all"><u>Show All</u></string>
+</resources>

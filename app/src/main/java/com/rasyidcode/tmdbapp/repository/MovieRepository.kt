@@ -2,7 +2,6 @@ package com.rasyidcode.tmdbapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.rasyidcode.tmdbapp.database.MovieDatabase
 import com.rasyidcode.tmdbapp.database.movie.MovieDao
 import com.rasyidcode.tmdbapp.database.movie.MovieFetchType
 import com.rasyidcode.tmdbapp.database.movie.asMovieDomain
@@ -17,32 +16,31 @@ class MovieRepository(
     private val movieDao: MovieDao
 ) {
 
-    val moviesPopular: LiveData<List<Movie>> = movieDao
+    val moviesPopular: LiveData<List<Movie>?> = movieDao
         .getMoviesByFetchType(MovieFetchType.POPULAR).map {
             it.asMovieDomain()
         }
 
-    val moviesNowPlaying: LiveData<List<Movie>> = movieDao
+    val moviesNowPlaying: LiveData<List<Movie>?> = movieDao
         .getMoviesByFetchType(MovieFetchType.NOW_PLAYING).map {
             it.asMovieDomain()
         }
 
-    val moviesTopRated: LiveData<List<Movie>> = movieDao
+    val moviesTopRated: LiveData<List<Movie>?> = movieDao
         .getMoviesByFetchType(MovieFetchType.TOP_RATED).map {
             it.asMovieDomain()
         }
 
-    val moviesUpcoming: LiveData<List<Movie>> = movieDao
+    val moviesUpcoming: LiveData<List<Movie>?> = movieDao
         .getMoviesByFetchType(MovieFetchType.UPCOMING).map {
             it.asMovieDomain()
         }
 
     suspend fun fetchNowPlaying(page: Int = 1) = withContext(Dispatchers.IO) {
         val movies = movieApiService.getNowPlaying(page)
+        val movieList = movies.results.asMoviesEntity(MovieFetchType.NOW_PLAYING)
 
-        movieDao.insertAll(
-            movies.results.asMoviesEntity(MovieFetchType.NOW_PLAYING)
-        )
+        movieDao.insertAll(movieList)
     }
 
     suspend fun fetchPopular(page: Int = 1) = withContext(Dispatchers.IO) {
@@ -67,6 +65,10 @@ class MovieRepository(
         movieDao.insertAll(
             movies.results.asMoviesEntity(MovieFetchType.UPCOMING)
         )
+    }
+
+    companion object {
+        const val TAG = "MovieRepository"
     }
 
 }

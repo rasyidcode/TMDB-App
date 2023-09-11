@@ -18,13 +18,13 @@ class HomeViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    val topRatedMovies: LiveData<List<Movie>> = movieRepository.moviesTopRated.map { it.take(10) }
+    val topRatedMovies: LiveData<List<Movie>?> = movieRepository.moviesTopRated.map { it?.take(10) }
 
-    val upcomingMovies: LiveData<List<Movie>> = movieRepository.moviesUpcoming.map { it.take(10) }
+    val upcomingMovies: LiveData<List<Movie>?> = movieRepository.moviesUpcoming.map { it?.take(10) }
 
-    val nowPlayingMovies: LiveData<List<Movie>> = movieRepository.moviesNowPlaying.map { it.take(10) }
+    val nowPlayingMovies: LiveData<List<Movie>?> = movieRepository.moviesNowPlaying.map { it?.take(10) }
 
-    val popularMovies: LiveData<List<Movie>> = movieRepository.moviesPopular.map { it.take(10) }
+    val popularMovies: LiveData<List<Movie>?> = movieRepository.moviesPopular.map { it?.take(10) }
 
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading

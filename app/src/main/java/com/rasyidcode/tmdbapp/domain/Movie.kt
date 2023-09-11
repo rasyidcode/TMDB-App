@@ -2,6 +2,7 @@ package com.rasyidcode.tmdbapp.domain
 
 data class Movie(
     val id: Int? = null,
+    val movieId: Int? = null,
     val title: String? = null,
     val originalTitle: String? = null,
     val overview: String? = null,

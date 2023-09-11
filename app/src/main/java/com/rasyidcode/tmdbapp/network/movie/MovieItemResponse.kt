@@ -31,7 +31,8 @@ data class MovieItemResponse(
 
 fun List<MovieItemResponse?>?.asMoviesEntity(fetchType: MovieFetchType?): List<MovieEntity?>? = this?.map {
     MovieEntity(
-        id = it?.id,
+        id = null,
+        movieId = it?.id,
         title = it?.title,
         originalTitle = it?.originalTitle,
         overview = it?.overview,
